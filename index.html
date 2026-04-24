@@ -114,10 +114,8 @@
         .info h3 { font-size: 1rem; margin-bottom: 2px; }
         .info p { font-size: 0.75rem; color: #94a3b8; }
 
-        /* تلوين خاص للأزرار الإدارية */
         .btn-apply { border-right-color: var(--success) !important; }
         .btn-apply .icon { color: var(--success); }
-        .btn-promo { border-right-color: var(--warning) !important; }
 
         .admin-link {
             text-align: center; padding: 30px; font-size: 0.8rem;
@@ -152,7 +150,7 @@
             <div id="res" style="display:none; margin-top:10px; padding:10px; background:rgba(0,0,0,0.3); border-right:3px solid var(--mil-gold);"></div>
         </section>
 
-        <a href="https://docs.google.com/spreadsheets/d/1F5xmQrPJAfG2eVsE-VN9dk0W744FtIi7aJA1_Ig1oR4/edit?usp=sharing" target="_blank" class="card">
+        <a href="https://docs.google.com/spreadsheets/d/1MsgT160dvk-U76XcTOp7_1p3iKLeE2_tA05TOBCekIY/edit?usp=drivesdk" target="_blank" class="card">
             <div class="icon"><i class="fas fa-gavel"></i></div>
             <div class="info"><h3>لائحة التحقيقات العسكرية</h3><p>الضوابط والقوانين العامة</p></div>
         </a>
@@ -198,7 +196,7 @@
     </main>
 
     <script>
-        // الساعة
+        // الساعة والتاريخ
         setInterval(() => {
             const now = new Date();
             document.getElementById('mTime').innerText = now.toLocaleTimeString('ar-EG');
@@ -219,6 +217,8 @@
             if(id && msg) {
                 localStorage.setItem('MIL_DATA_'+id, msg);
                 alert("تم تسجيل القرار بنجاح.");
+            } else {
+                alert("يرجى ملء جميع الحقول.");
             }
         }
 
@@ -226,6 +226,11 @@
         function searchData() {
             const id = document.getElementById('sInput').value;
             const box = document.getElementById('res');
+            if(!id) {
+                box.style.display = 'block';
+                box.innerHTML = "يرجى إدخال رقم الملف.";
+                return;
+            }
             const data = localStorage.getItem('MIL_DATA_'+id);
             box.style.display = 'block';
             box.innerHTML = data ? `<b>الحالة:</b> ${data}` : `لا يوجد سجل لهذا الرقم.`;
